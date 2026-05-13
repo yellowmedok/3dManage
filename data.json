@@ -1,0 +1,83 @@
+{
+  "filaments": [],
+  "orders": [
+    {
+      "id": "ord-1778618988585",
+      "modelName": "Куб",
+      "client": "Марко",
+      "weight": 500,
+      "price": "440.00",
+      "status": "new"
+    },
+    {
+      "id": "ord-1778618968066",
+      "modelName": "Куб",
+      "client": "Марко",
+      "weight": 500,
+      "price": "440.00",
+      "status": "done"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "mat-1778584861255",
+      "material": "PLA",
+      "color": "Red",
+      "pricePerSpool": 700,
+      "weightPerSpool": 1000,
+      "spools": [
+        {
+          "id": "spool-1778584861255",
+          "remainingGrams": 0
+        },
+        {
+          "id": "spool-1778616727559",
+          "remainingGrams": 871
+        },
+        {
+          "id": "spool-1778616728706",
+          "remainingGrams": 1000
+        },
+        {
+          "id": "spool-1778616738147",
+          "remainingGrams": 1000
+        }
+      ],
+      "quantity": 6,
+      "notes": ""
+    },
+    {
+      "id": "mat-1778618025490",
+      "material": "PETG",
+      "color": "Зелений",
+      "pricePerSpool": 600,
+      "weightPerSpool": 330,
+      "quantity": 1,
+      "notes": "",
+      "spools": [
+        {
+          "id": "spool-1778618025490",
+          "remainingGrams": 330
+        }
+      ]
+    }
+  ],
+  "savedModels": [
+    {
+      "name": "Peppermill holder",
+      "weight": 62,
+      "timeMins": 92
+    },
+    {
+      "name": "Test_Gear",
+      "weight": 50,
+      "timeMins": 120
+    },
+    {
+      "name": "Peppermill_holder",
+      "weight": 62,
+      "timeMins": 92,
+      "id": "mod-1778616691860"
+    }
+  ]
+}
