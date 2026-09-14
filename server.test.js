@@ -1,6 +1,28 @@
+const mongoose = require('mongoose');
 const request = require('supertest');
 const fs = require('fs');
-const app = require('./server'); // Підключаємо наш сервер
+
+// === 1. БЛОКУЄМО РЕАЛЬНЕ ПІДКЛЮЧЕННЯ ДО MONGODB ===
+jest.spyOn(mongoose, 'connect').mockResolvedValue(true);
+jest.spyOn(mongoose.connection, 'close').mockResolvedValue(true);
+
+// === 2. ІМІТУЄМО ВІДПОВІДІ БД ДЛЯ ТЕСТІВ ===
+jest.spyOn(mongoose.Model, 'find').mockResolvedValue([]);
+jest.spyOn(mongoose.Model, 'create').mockResolvedValue({});
+jest.spyOn(mongoose.Model, 'findOne').mockImplementation((query) => {
+  // Повертаємо null для тесту на помилку 400
+  if (query && query.id === 'invalid_id') {
+    return Promise.resolve(null);
+  }
+  // Повертаємо фейкову котушку для інших потенційних сценаріїв
+  return Promise.resolve({
+    spools: [{ id: "1", remainingGrams: 1000 }],
+    save: jest.fn().mockResolvedValue(true)
+  });
+});
+
+// ВАЖЛИВО: Імпорт сервера має бути строго ПІСЛЯ моків!
+const app = require('./server'); 
   
 describe('API Тестування 3dManage', () => {
   // Тест 1: Перевірка складу (GET)
@@ -30,8 +52,7 @@ describe('API Тестування 3dManage', () => {
   });
 });
 
-const mongoose = require('mongoose');
-
 afterAll(async () => {
     await mongoose.connection.close();
+    jest.restoreAllMocks(); // Очищаємо оперативну пам'ять від моків
 });

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1789415923555" clover="3.2.0">
-  <project timestamp="1789415923555" name="All files">
-    <metrics statements="176" coveredstatements="85" conditionals="45" coveredconditionals="14" methods="34" coveredmethods="11" elements="255" coveredelements="110" complexity="0" loc="176" ncloc="176" packages="4" files="6" classes="6"/>
+<coverage generated="1789416510630" clover="3.2.0">
+  <project timestamp="1789416510630" name="All files">
+    <metrics statements="176" coveredstatements="84" conditionals="45" coveredconditionals="14" methods="34" coveredmethods="10" elements="255" coveredelements="108" complexity="0" loc="176" ncloc="176" packages="4" files="6" classes="6"/>
     <package name="3dManage">
-      <metrics statements="114" coveredstatements="53" conditionals="12" coveredconditionals="6" methods="23" coveredmethods="6"/>
+      <metrics statements="114" coveredstatements="52" conditionals="12" coveredconditionals="6" methods="23" coveredmethods="5"/>
       <file name="server.js" path="/Users/bohdantytsky/Desktop/projects/3dManage/server.js">
-        <metrics statements="114" coveredstatements="53" conditionals="12" coveredconditionals="6" methods="23" coveredmethods="6"/>
+        <metrics statements="114" coveredstatements="52" conditionals="12" coveredconditionals="6" methods="23" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -28,7 +28,7 @@
         <line num="46" count="1" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
         <line num="81" count="1" type="stmt"/>
