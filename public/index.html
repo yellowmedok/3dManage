@@ -184,6 +184,8 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.04em}
 .text-accent{color:var(--accent)}.text-muted{color:var(--muted)}.mono{font-family:var(--mono)}
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -223,8 +225,12 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
       Склад
     </button>
+    <button class="nav-item" onclick="switchTab('finance',this)">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Фінанси
+    </button>
     <button class="nav-item" onclick="switchTab('settings',this)">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Налаштування
     </button>
   </nav>
@@ -280,7 +286,7 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
       
       <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom: 1rem;">
         <input type="checkbox" id="k_saveModel" style="width:auto; cursor:pointer;" checked>
-        <label for="k_saveModel" style="margin:0; cursor:pointer;">Save to History</label>
+        <label for="k_saveModel" style="margin:0; cursor:pointer;">Зберегти в історію</label>
       </div>
 
       <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--border2);padding-top:1rem;margin-bottom:1rem">
@@ -354,12 +360,17 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 
 <!-- 5. СКЛАД ──────────────────────────────────────────────────────────── -->
 <div id="tab-inventory" class="tab-pane">
-  <div class="page-header">
+<div class="page-header">
     <h2 class="page-title">Склад філаменту</h2>
-    <button class="btn primary" onclick="openAddMaterial()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Новий матеріал
-    </button>
+    <div style="display:flex;gap:1rem">
+      <button class="btn ghost" onclick="openProcurementModal()">
+        📋 Звіт по закупівлях
+      </button>
+      <button class="btn primary" onclick="openAddMaterial()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Новий матеріал
+      </button>
+    </div>
   </div>
   <div id="inventoryList" class="grid2"></div>
 </div>
@@ -375,6 +386,30 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       Зберегти налаштування
     </button>
+  </div>
+</div>
+
+<!-- 7. ФІНАНСИ ────────────────────────────────────────────────────────── -->
+<div id="tab-finance" class="tab-pane">
+  <div class="page-header"><h2 class="page-title">Фінанси та звітність <small>Аналітика ФОП</small></h2></div>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-bottom:1rem;font-weight:800;color:#fff">Податковий калькулятор</h3>
+      <div class="row2" style="margin-bottom:1rem">
+        <div class="ig"><label>Початок періоду</label><input type="date" id="fin-start"></div>
+        <div class="ig"><label>Кінець періоду</label><input type="date" id="fin-end"></div>
+      </div>
+      <button class="btn primary" style="width:100%;margin-bottom:1.5rem" onclick="generateFinanceReport()">
+        Розрахувати показники
+      </button>
+      <div id="tax-report" style="padding:1rem;background:rgba(0,0,0,.2);border:1px solid var(--border2);border-radius:8px;font-family:var(--mono);color:var(--text)">
+        Вкажіть дати та натисніть "Розрахувати"...
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:1rem;font-weight:800;color:#fff">Структура собівартості</h3>
+      <canvas id="cogsChart" style="max-height: 300px;"></canvas>
+    </div>
   </div>
 </div>
 
@@ -412,6 +447,21 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       Додати
     </button>
+  </div>
+</div>
+</div>
+
+<!-- ── MODAL: PROCUREMENT ──────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal-procurement">
+<div class="modal wide">
+  <div class="modal-title">📋 Звіт по закупівлях філаменту</div>
+  
+  <div id="procurement-container" style="max-height: 50vh; overflow-y: auto; margin-bottom: 1rem;">
+    Завантаження даних...
+  </div>
+  
+  <div class="modal-footer">
+    <button class="btn ghost" onclick="closeModal('procurement')">Закрити</button>
   </div>
 </div>
 </div>
@@ -484,13 +534,15 @@ async function init() {
   if (local) { try { db = { ...db, ...JSON.parse(local) }; if (!db.orders) db.orders = []; } catch(e){} }
 
   try {
-    const [invR, modR, setR] = await Promise.all([
-      fetch('/api/inventory'), fetch('/api/models'), fetch('/api/settings')
+    // ЗАВАНТАЖУЄМО З MONGODB
+    const [invR, modR, setR, ordR] = await Promise.all([
+      fetch('/api/inventory'), fetch('/api/models'), fetch('/api/settings'), fetch('/api/orders')
     ]);
     if (invR.ok) db.inventory = await invR.json();
     if (modR.ok) db.savedModels = await modR.json();
     if (setR.ok) settings = { ...settings, ...(await setR.json()) };
-  } catch(e) { console.warn('Offline mode'); }
+    if (ordR.ok) db.orders = await ordR.json();
+  } catch(e) { console.warn('Режим офлайн'); }
 
   document.getElementById('set_amort').value = settings.amort;
   document.getElementById('set_kwprice').value = settings.kwPrice;
@@ -550,9 +602,9 @@ async function handleFile(file, prefix) {
     if (prefix === 'k') calcK(); else calcC();
 
     // Auto-save model
-    const modelData = { name, weight, timeMins };
+    const modelData = { id: 'mod-' + Date.now(), name, weight, timeMins };
     if (!db.savedModels.find(m => m.name === name)) {
-      db.savedModels.unshift({ id: 'mod-' + Date.now(), ...modelData });
+      db.savedModels.unshift(modelData);
       saveLocal(); renderModels();
       try { await fetch('/api/models', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(modelData) }); } catch(e){}
     }
@@ -561,7 +613,6 @@ async function handleFile(file, prefix) {
 }
 
 // ── CALCULATIONS ──────────────────────────────────────────────────────────────
-// ── CALCULATIONS ──────────────────────────────────────────────────────────────
 function getMatCost(matId, weight) {
   if (!matId || !weight) return 0;
   const m = db.inventory.find(x => x.id === matId);
@@ -569,13 +620,11 @@ function getMatCost(matId, weight) {
 }
 
 function calcK() {
-  // Використовуємо Math.max для запобігання від'ємним числам
   const w = Math.max(0, parseFloat(document.getElementById('k_weight').value) || 0);
   const t = Math.max(0, parseFloat(document.getElementById('k_time').value) || 0);
   const a = Math.max(0, parseFloat(document.getElementById('k_amort').value) || 0);
   const p = Math.max(0, parseFloat(document.getElementById('k_post').value) || 0);
   
-  // Оновлюємо значення в інпутах, якщо користувач ввів мінус
   if (w !== parseFloat(document.getElementById('k_weight').value)) document.getElementById('k_weight').value = w || '';
   if (t !== parseFloat(document.getElementById('k_time').value)) document.getElementById('k_time').value = t || '';
 
@@ -585,13 +634,11 @@ function calcK() {
 }
 
 function calcC() {
-  // Використовуємо Math.max для калькулятора
   const w = Math.max(0, parseFloat(document.getElementById('c_weight').value) || 0);
   const t = Math.max(0, parseFloat(document.getElementById('c_time').value) || 0);
   const a = Math.max(0, parseFloat(document.getElementById('c_amort').value) || 0);
   const p = Math.max(0, parseFloat(document.getElementById('c_post').value) || 0);
 
-  // Оновлюємо значення в інпутах калькулятора
   if (w !== parseFloat(document.getElementById('c_weight').value)) document.getElementById('c_weight').value = w || '';
   if (t !== parseFloat(document.getElementById('c_time').value)) document.getElementById('c_time').value = t || '';
 
@@ -621,11 +668,11 @@ async function submitKanbanOrder() {
   const modelName = document.getElementById('k_modelName').value.trim();
   const client = document.getElementById('k_client').value.trim() || 'Анонім';
   const weight = parseFloat(document.getElementById('k_weight').value) || 0;
-  const timeMins = parseFloat(document.getElementById('k_time').value) || 0; // Додано отримання часу
+  const timeMins = parseFloat(document.getElementById('k_time').value) || 0;
   const matId = document.getElementById('k_mat').value;
   const spoolId = document.getElementById('k_spool').value;
   const notes = document.getElementById('k_notes').value.trim();
-  const saveToHistory = document.getElementById('k_saveModel').checked; // Перевірка чекбоксу
+  const saveToHistory = document.getElementById('k_saveModel').checked;
 
   if (!modelName || !weight) return toast('Введіть назву та вагу!', 'error');
 
@@ -638,7 +685,6 @@ async function submitKanbanOrder() {
     }
   }
 
-  // Збереження моделі в історію, якщо увімкнено чекбокс
   if (saveToHistory && !db.savedModels.find(m => m.name === modelName)) {
     const newMod = { id: 'mod-' + Date.now(), name: modelName, weight, timeMins };
     db.savedModels.unshift(newMod);
@@ -659,7 +705,7 @@ async function submitKanbanOrder() {
     await fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) });
     if (matId && spoolId) {
       await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ materialId: matId, spoolId, weightUsed: weight }) });
-      await fetch('/api/inventory', { method: 'GET' }).then(r => r.json()).then(d => { db.inventory = d; });
+      await fetch('/api/inventory', { method: 'GET' }).then(r => r.json()).then(d => { db.inventory = d; renderInventory(); });
     }
   } catch(e){}
 }
@@ -755,7 +801,6 @@ async function submitMaterial() {
     if (m) {
       m.material = material; m.color = color; m.pricePerSpool = pricePerSpool;
       m.weightPerSpool = weightPerSpool; m.notes = notes;
-      // add spools if qty increased
       while (m.spools.length < qty) m.spools.push({ id: 'spool-' + Date.now() + m.spools.length, remainingGrams: weightPerSpool });
     }
     try { await fetch('/api/inventory/' + editId, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(db.inventory.find(x => x.id === editId)) }); } catch(e){}
@@ -766,7 +811,9 @@ async function submitMaterial() {
     const spools = Array.from({ length: qty }, (_, i) => ({ id: 'spool-' + (Date.now() + i), remainingGrams: weightPerSpool }));
     const entry = { id, material, color, pricePerSpool, weightPerSpool, spools, notes };
     db.inventory.push(entry);
-    try { await fetch('/api/inventory/add', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ material, color, pricePerSpool, weightPerSpool, quantity: qty, notes }) }); } catch(e){}
+    
+    // ВІДПРАВЛЯЄМО ПОВНИЙ ОБ'ЄКТ (разом з _id та котушками) НА НОВИЙ АПІ
+    try { await fetch('/api/inventory', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }); } catch(e){}
     toast('Матеріал додано', 'success');
   }
 
@@ -845,18 +892,112 @@ async function saveSettings() {
 
 // ── DRAG AND DROP KANBAN ──────────────────────────────────────────────────────
 function allowDrop(ev) {
-  ev.preventDefault(); // Дозволяємо скидання елемента
+  ev.preventDefault();
 }
 
 function drag(ev, id) {
-  ev.dataTransfer.setData("order_id", id); // Зберігаємо ID замовлення під час початку перетягування
+  ev.dataTransfer.setData("order_id", id);
 }
 
 function drop(ev, newStatus) {
   ev.preventDefault();
   const id = ev.dataTransfer.getData("order_id");
   if (id) {
-    updateOrderStatus(id, newStatus); // Оновлюємо статус після скидання
+    updateOrderStatus(id, newStatus);
+  }
+}
+
+// ── PROCUREMENT FORECAST ──────────────────────────────────────────────────────
+async function openProcurementModal() {
+  openModal('procurement');
+  document.getElementById('procurement-container').innerHTML = 'Завантаження даних...';
+  
+  try {
+    const res = await fetch('/api/analytics/procurement/forecast');
+    if (!res.ok) throw new Error('API Offline');
+    const data = await res.json();
+    
+    let csvContent = "data:text/csv;charset=utf-8,Матеріал,Колір,Статус,Залишок(днів),Замовити(шт)\n";
+    let html = `<div style="display:grid;gap:0.5rem;">`;
+    
+    data.forEach(row => {
+      let badgeCol = row.status.includes('CRITICAL') ? 'var(--red)' : row.status.includes('WARNING') ? 'var(--yellow)' : 'var(--green)';
+      html += `<div style="display:flex;justify-content:space-between;padding:.75rem;background:var(--bg);border:1px solid var(--border2);border-radius:6px;align-items:center;">
+        <div style="font-weight:700">${row.material} ${row.color}</div>
+        <div style="display:flex;gap:1rem;align-items:center;font-family:var(--mono);font-size:.85rem">
+          <span style="color:${badgeCol}">${row.status}</span>
+          <span>${row.daysRemaining} днів</span>
+          <span style="color:var(--accent);font-weight:800">+${row.recommendedSpools} шт</span>
+        </div>
+      </div>`;
+      if (row.recommendedSpools > 0) {
+        csvContent += `${row.material},${row.color},${row.status},${row.daysRemaining},${row.recommendedSpools}\n`;
+      }
+    });
+    
+    html += `</div>
+      <div style="margin-top:1rem;">
+        <a href="${encodeURI(csvContent)}" download="procurement_order.csv" class="btn primary" style="text-decoration:none;">📥 Експорт CSV для постачальника</a>
+      </div>`;
+    
+    document.getElementById('procurement-container').innerHTML = html;
+  } catch(e) {
+    document.getElementById('procurement-container').innerHTML = '<div style="color:var(--red)">Помилка завантаження (API недоступне або офлайн режим)</div>';
+  }
+}
+
+// ── FINANCE ANALYTICS ─────────────────────────────────────────────────────────
+let chartInstance = null;
+
+async function generateFinanceReport() {
+  const start = document.getElementById('fin-start').value;
+  const end = document.getElementById('fin-end').value;
+  
+  if (!start || !end) return toast('Вкажіть обидві дати', 'error');
+
+  try {
+    const res = await fetch(`/api/analytics/finance?start=${start}&end=${end}&group=3`);
+    if (!res.ok) throw new Error('API Offline');
+    const data = await res.json();
+
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(document.getElementById('cogsChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Пластик', 'Електроенергія', 'Амортизація'],
+        datasets: [{ 
+          data: [data.cogs.materialCost, data.cogs.electricityCost, data.cogs.depreciation], 
+          backgroundColor: ['#ff4757', '#00d4ff', '#f1c40f'],
+          borderColor: '#1a2230'
+        }]
+      },
+      options: { plugins: { legend: { labels: { color: '#c9d1d9' } } } }
+    });
+
+    document.getElementById('tax-report').innerHTML = `
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;">
+        <span class="text-muted">Загальна виручка:</span><span>${data.revenue.toFixed(2)} ₴</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;">
+        <span class="text-muted">Валовий прибуток:</span><span>${data.grossProfit.toFixed(2)} ₴</span>
+      </div>
+      <div class="sep"></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;color:var(--yellow)">
+        <span>Єдиний податок (5%):</span><span>-${data.taxes.singleTax.toFixed(2)} ₴</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;color:var(--yellow)">
+        <span>ЄСВ:</span><span>-${data.taxes.esv.toFixed(2)} ₴</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;color:var(--yellow)">
+        <span>Військовий збір (1.5%):</span><span>-${data.taxes.militaryTax.toFixed(2)} ₴</span>
+      </div>
+      <div class="sep"></div>
+      <div style="display:flex;justify-content:space-between;font-size:1.3rem;font-weight:900;color:var(--green)">
+        <span>ЧИСТИЙ ПРИБУТОК:</span><span>${data.netProfit.toFixed(2)} ₴</span>
+      </div>
+    `;
+  } catch(e) {
+    toast('Офлайн режим: розрахунок недоступний', 'error');
   }
 }
 

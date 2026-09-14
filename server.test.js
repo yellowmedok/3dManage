@@ -1,7 +1,7 @@
 const request = require('supertest');
 const fs = require('fs');
 const app = require('./server'); // Підключаємо наш сервер
-
+  
 describe('API Тестування 3dManage', () => {
   // Тест 1: Перевірка складу (GET)
   it('GET /api/inventory повинен повертати масив (статус 200)', async () => {
@@ -28,4 +28,10 @@ describe('API Тестування 3dManage', () => {
     expect(res.statusCode).toEqual(400);
     expect(res.text).toBe("Not found");
   });
+});
+
+const mongoose = require('mongoose');
+
+afterAll(async () => {
+    await mongoose.connection.close();
 });

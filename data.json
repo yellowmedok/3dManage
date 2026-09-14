@@ -64,6 +64,11 @@
   ],
   "savedModels": [
     {
+      "name": "Yayko",
+      "weight": 17,
+      "timeMins": 64
+    },
+    {
       "name": "Peppermill holder",
       "weight": 62,
       "timeMins": 92
