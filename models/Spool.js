@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const spoolSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
     material: String,
     color: String,
     currentWeight: Number,
@@ -8,4 +9,4 @@ const spoolSchema = new mongoose.Schema({
     initialWeight: Number
 }, { timestamps: true });
 
-module.exports = mongoose.model('Spool', spoolSchema);
+module.exports = mongoose.models.Spool || mongoose.model('Spool', spoolSchema);

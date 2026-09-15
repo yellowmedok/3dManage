@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:3000; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
 <title>3dManage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -19,7 +18,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* ── TOP BAR ─────────────────────────────────────────────────────────── */
 .topbar{
   display:flex;align-items:center;justify-content:space-between;
   background:var(--surface);border-bottom:1px solid var(--border);
@@ -36,11 +34,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 }
 .owner-tag span{color:var(--accent);font-weight:700}
 
-/* ── SHELL ─────────────────────────────────────────────────────────────── */
 .shell{display:flex;flex:1;overflow:hidden}
-
-/* ── SIDEBAR ──────────────────────────────────────────────────────────── */
-.sidebar{width:230px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar{width:230px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;justify-content:space-between;}
 .nav-menu{display:flex;flex-direction:column;gap:.3rem;padding:.75rem}
 .nav-item{
   display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;
@@ -53,7 +48,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 .nav-item svg{flex-shrink:0;opacity:.7}
 .nav-item.active svg{opacity:1}
 
-/* ── CONTENT ──────────────────────────────────────────────────────────── */
 .content{flex:1;overflow-y:auto;padding:2rem 2.5rem}
 .tab-pane{display:none;animation:fadeIn .25s ease}
 .tab-pane.active{display:block}
@@ -63,13 +57,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 .page-title{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-.03em}
 .page-title small{font-size:.9rem;font-weight:400;color:var(--muted);margin-left:.75rem}
 
-/* ── CARDS ────────────────────────────────────────────────────────────── */
 .card{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:1.5rem}
 .stat-card{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:1.25rem 1.5rem;border-top:3px solid var(--accent)}
 .stat-card .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem}
 .stat-card .value{font-size:2.2rem;font-weight:900;color:#fff}
 
-/* ── FORMS ────────────────────────────────────────────────────────────── */
 .ig{margin-bottom:1rem}
 .ig label{display:block;margin-bottom:.35rem;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
 .ig input,.ig select,.ig textarea{
@@ -82,9 +74,8 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .row2{display:flex;gap:1rem}
 .row2 .ig{flex:1}
 
-/* ── BUTTONS ──────────────────────────────────────────────────────────── */
 .btn{
-  display:inline-flex;align-items:center;gap:.45rem;
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
   background:var(--border2);color:#fff;border:none;
   padding:.65rem 1.1rem;border-radius:6px;font-weight:700;
   cursor:pointer;transition:all .15s;font-family:var(--font);font-size:.9rem;
@@ -100,7 +91,6 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .btn.icon{padding:.4rem .55rem;background:transparent;border:1px solid var(--border2);color:var(--muted)}
 .btn.icon:hover{color:var(--text);border-color:var(--border2)}
 
-/* ── DROP ZONE ────────────────────────────────────────────────────────── */
 .drop-zone{
   border:2px dashed var(--border2);border-radius:8px;padding:1.5rem;
   text-align:center;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:1.25rem;
@@ -112,7 +102,6 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .drop-zone-label{font-size:.85rem;font-weight:700;color:#fff;display:block;margin-bottom:.2rem}
 .drop-zone-sub{font-size:.75rem;color:var(--muted)}
 
-/* ── KANBAN ───────────────────────────────────────────────────────────── */
 .kanban-layout{display:flex;gap:2rem;align-items:flex-start}
 .kanban-form{width:370px;flex-shrink:0}
 .kanban-board{display:flex;gap:1rem;flex:1;overflow-x:auto;min-height:500px}
@@ -133,7 +122,6 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .k-item-actions{display:flex;gap:.4rem;margin-top:.6rem}
 .k-item-actions button{flex:1}
 
-/* ── INVENTORY ────────────────────────────────────────────────────────── */
 .inv-card{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:1.25rem;position:relative}
 .inv-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
 .inv-card-title{font-size:1.05rem;font-weight:800;color:#fff}
@@ -146,7 +134,6 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .spool-fill{height:100%;border-radius:3px;transition:width .4s}
 .spool-grams{width:50px;text-align:right;font-family:var(--mono);font-weight:700}
 
-/* ── MODELS GRID ──────────────────────────────────────────────────────── */
 .model-card{
   background:var(--surface);border:1px solid var(--border2);border-radius:10px;
   padding:1.1rem;cursor:pointer;transition:all .2s;position:relative;
@@ -157,8 +144,7 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .model-card-actions{position:absolute;top:.65rem;right:.65rem;display:flex;gap:.3rem;opacity:0;transition:opacity .15s}
 .model-card:hover .model-card-actions{opacity:1}
 
-/* ── MODAL ────────────────────────────────────────────────────────────── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:200;place-items:center}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);z-index:200;place-items:center}
 .modal-overlay.open{display:grid}
 .modal{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:2rem;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;animation:modalIn .2s ease}
 .modal.wide{width:560px}
@@ -166,7 +152,6 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .modal-title{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
 .modal-footer{display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
 
-/* ── TOAST ────────────────────────────────────────────────────────────── */
 .toast-container{position:fixed;bottom:1.25rem;right:1.25rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem}
 .toast{
   background:var(--surface);border-left:3px solid var(--accent);
@@ -178,16 +163,42 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 .toast.error{border-color:var(--red)}
 @keyframes slideIn{from{transform:translateX(110%);opacity:0}to{transform:none;opacity:1}}
 
-/* ── MISC ─────────────────────────────────────────────────────────────── */
 .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
 .sep{height:1px;background:var(--border);margin:1.25rem 0}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.04em}
 .text-accent{color:var(--accent)}.text-muted{color:var(--muted)}.mono{font-family:var(--mono)}
 </style>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
+<!-- ── AUTH OVERLAY ──────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="auth-overlay" style="z-index:10000; background: var(--bg);">
+  <div class="modal" style="width: 380px;">
+    <div class="modal-title" style="justify-content: center; font-size: 1.5rem; margin-bottom: 2rem;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span style="color:var(--text)">3dManage</span>
+    </div>
+    
+    <div id="auth-login-form">
+      <div class="ig"><label>Email</label><input type="email" id="login-email"/></div>
+      <div class="ig"><label>Пароль</label><input type="password" id="login-pass"/></div>
+      <button class="btn primary" style="width:100%; margin-top: 1rem;" onclick="performLogin()">Увійти</button>
+      <div style="text-align:center; margin-top:1.5rem; font-size:0.85rem;">
+        Немає акаунту? <a href="#" onclick="toggleAuthForm('register')" style="color:var(--accent); text-decoration:none; font-weight:700;">Зареєструватися</a>
+      </div>
+    </div>
+    
+    <div id="auth-reg-form" style="display:none;">
+      <div class="ig"><label>Назва ферми (Студії)</label><input type="text" id="reg-farm" placeholder="My 3D Farm"/></div>
+      <div class="ig"><label>Email</label><input type="email" id="reg-email"/></div>
+      <div class="ig"><label>Пароль</label><input type="password" id="reg-pass"/></div>
+      <button class="btn primary" style="width:100%; margin-top: 1rem;" onclick="performRegister()">Створити акаунт</button>
+      <div style="text-align:center; margin-top:1.5rem; font-size:0.85rem;">
+        Вже є акаунт? <a href="#" onclick="toggleAuthForm('login')" style="color:var(--accent); text-decoration:none; font-weight:700;">Увійти</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ── TOP BAR ─────────────────────────────────────────────────────────── -->
 <div class="topbar">
@@ -196,7 +207,7 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
     3dManage<span></span>
   </div>
   <div class="topbar-right">
-    <div class="owner-tag">Власник: <span>Тицький</span></div>
+    <div class="owner-tag">Ферма: <span id="farm-name-display">Завантаження...</span></div>
   </div>
 </div>
 
@@ -234,6 +245,12 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
       Налаштування
     </button>
   </nav>
+  <div style="padding: 1rem;">
+    <button class="btn ghost" style="width: 100%; border-color: rgba(255,71,87,.35); color: var(--red);" onclick="logout()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Вийти
+    </button>
+  </div>
 </aside>
 
 <!-- ── CONTENT ──────────────────────────────────────────────────────────── -->
@@ -524,25 +541,103 @@ textarea{resize:vertical;min-height:70px;font-family:var(--font);font-size:.9rem
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
+// ── FETCH WRAPPER (АВТЕНТИФІКАЦІЯ) ──────────────────────────────────────────
+async function authFetch(url, options = {}) {
+  const token = localStorage.getItem('3dmanage_token');
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    ...(options.headers || {})
+  };
+  const response = await fetch(url, { ...options, headers });
+  if (response.status === 401) {
+    logout();
+    throw new Error('Unauthorized');
+  }
+  return response;
+}
+
+// ── АВТОРИЗАЦІЯ (ЛОГІКА) ──────────────────────────────────────────────────────
+function toggleAuthForm(type) {
+  document.getElementById('auth-login-form').style.display = type === 'login' ? 'block' : 'none';
+  document.getElementById('auth-reg-form').style.display = type === 'register' ? 'block' : 'none';
+}
+
+async function performLogin() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-pass').value;
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    
+    localStorage.setItem('3dmanage_token', data.token);
+    localStorage.setItem('3dmanage_farm', data.farmName);
+    document.getElementById('auth-overlay').classList.remove('open');
+    toast('Вхід успішний', 'success');
+    initData();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+async function performRegister() {
+  const farmName = document.getElementById('reg-farm').value;
+  const email = document.getElementById('reg-email').value;
+  const password = document.getElementById('reg-pass').value;
+  try {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ farmName, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    
+    localStorage.setItem('3dmanage_token', data.token);
+    localStorage.setItem('3dmanage_farm', data.farmName);
+    document.getElementById('auth-overlay').classList.remove('open');
+    toast('Акаунт створено', 'success');
+    initData();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+function logout() {
+  localStorage.removeItem('3dmanage_token');
+  localStorage.removeItem('3dmanage_farm');
+  document.getElementById('auth-overlay').classList.add('open');
+  db = { inventory: [], savedModels: [], orders: [] };
+  renderAll();
+}
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let db = { inventory: [], savedModels: [], orders: [] };
 let settings = { amort: 15, kwPrice: 4.32, printerKw: 0.1 };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 async function init() {
-  const local = localStorage.getItem('3dmanage_db');
-  if (local) { try { db = { ...db, ...JSON.parse(local) }; if (!db.orders) db.orders = []; } catch(e){} }
+  const token = localStorage.getItem('3dmanage_token');
+  if (!token) {
+    document.getElementById('auth-overlay').classList.add('open');
+    return;
+  }
+  document.getElementById('auth-overlay').classList.remove('open');
+  initData();
+}
 
+async function initData() {
+  document.getElementById('farm-name-display').innerText = localStorage.getItem('3dmanage_farm') || 'Моя Ферма';
   try {
-    // ЗАВАНТАЖУЄМО З MONGODB
     const [invR, modR, setR, ordR] = await Promise.all([
-      fetch('/api/inventory'), fetch('/api/models'), fetch('/api/settings'), fetch('/api/orders')
+      authFetch('/api/inventory'), authFetch('/api/models'), authFetch('/api/settings'), authFetch('/api/orders')
     ]);
     if (invR.ok) db.inventory = await invR.json();
     if (modR.ok) db.savedModels = await modR.json();
     if (setR.ok) settings = { ...settings, ...(await setR.json()) };
     if (ordR.ok) db.orders = await ordR.json();
-  } catch(e) { console.warn('Режим офлайн'); }
+  } catch(e) { console.warn('Помилка завантаження або неавторизовано'); }
 
   document.getElementById('set_amort').value = settings.amort;
   document.getElementById('set_kwprice').value = settings.kwPrice;
@@ -554,7 +649,6 @@ async function init() {
   renderAll();
 }
 
-// ── NAV ───────────────────────────────────────────────────────────────────────
 function switchTab(id, btn) {
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
@@ -562,14 +656,12 @@ function switchTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
 }
 
-// ── MODALS ────────────────────────────────────────────────────────────────────
 function openModal(id) { document.getElementById('modal-' + id).classList.add('open'); }
 function closeModal(id) { document.getElementById('modal-' + id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  o.addEventListener('click', e => { if (e.target === o && o.id !== 'auth-overlay') o.classList.remove('open'); });
 });
 
-// ── DROP ZONES ────────────────────────────────────────────────────────────────
 function setupDropZones() {
   ['k', 'c'].forEach(p => {
     const z = document.getElementById('drop_' + p);
@@ -601,18 +693,16 @@ async function handleFile(file, prefix) {
     document.getElementById(prefix + '_time').value = timeMins;
     if (prefix === 'k') calcK(); else calcC();
 
-    // Auto-save model
     const modelData = { id: 'mod-' + Date.now(), name, weight, timeMins };
     if (!db.savedModels.find(m => m.name === name)) {
       db.savedModels.unshift(modelData);
-      saveLocal(); renderModels();
-      try { await fetch('/api/models', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(modelData) }); } catch(e){}
+      renderModels();
+      try { await authFetch('/api/models', { method: 'POST', body: JSON.stringify(modelData) }); } catch(e){}
     }
     toast('Модель завантажено: ' + weight + 'г / ' + timeMins + 'хв', 'success');
   } catch(e) { toast('Помилка читання файлу', 'error'); }
 }
 
-// ── CALCULATIONS ──────────────────────────────────────────────────────────────
 function getMatCost(matId, weight) {
   if (!matId || !weight) return 0;
   const m = db.inventory.find(x => x.id === matId);
@@ -650,7 +740,6 @@ function calcC() {
   document.getElementById('c_resTotal').innerText = (mCost + amortTotal + p).toFixed(2) + ' ₴';
 }
 
-// ── SPOOLS ────────────────────────────────────────────────────────────────────
 function renderSpools() {
   const matId = document.getElementById('k_mat').value;
   const box = document.getElementById('k_spoolBox');
@@ -663,7 +752,6 @@ function renderSpools() {
     mat.spools.map((s, i) => `<option value="${s.id}">Котушка #${i+1} (Залишок: ${s.remainingGrams}г)</option>`).join('');
 }
 
-// ── SUBMIT ORDER ──────────────────────────────────────────────────────────────
 async function submitKanbanOrder() {
   const modelName = document.getElementById('k_modelName').value.trim();
   const client = document.getElementById('k_client').value.trim() || 'Анонім';
@@ -688,12 +776,11 @@ async function submitKanbanOrder() {
   if (saveToHistory && !db.savedModels.find(m => m.name === modelName)) {
     const newMod = { id: 'mod-' + Date.now(), name: modelName, weight, timeMins };
     db.savedModels.unshift(newMod);
-    try { await fetch('/api/models', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newMod) }); } catch(e){}
+    try { await authFetch('/api/models', { method: 'POST', body: JSON.stringify(newMod) }); } catch(e){}
   }
 
   const order = { id: 'ord-' + Date.now(), modelName, client, weight, price: calcK().toFixed(2), notes, status: 'new', createdAt: new Date().toISOString() };
   db.orders.unshift(order);
-  saveLocal();
   renderAll();
 
   ['k_modelName','k_client','k_notes'].forEach(id => document.getElementById(id).value = '');
@@ -702,33 +789,31 @@ async function submitKanbanOrder() {
   toast('Замовлення створено!', 'success');
 
   try {
-    await fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) });
+    await authFetch('/api/orders', { method: 'POST', body: JSON.stringify(order) });
     if (matId && spoolId) {
-      await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ materialId: matId, spoolId, weightUsed: weight }) });
-      await fetch('/api/inventory', { method: 'GET' }).then(r => r.json()).then(d => { db.inventory = d; renderInventory(); });
+      await authFetch('/api/checkout', { method: 'POST', body: JSON.stringify({ materialId: matId, spoolId, weightUsed: weight }) });
+      await authFetch('/api/inventory').then(r => r.json()).then(d => { db.inventory = d; renderInventory(); });
     }
   } catch(e){}
 }
-// ── ORDER STATUS ──────────────────────────────────────────────────────────────
+
 async function updateOrderStatus(id, newStatus) {
   const o = db.orders.find(x => x.id === id);
   if (o) {
     o.status = newStatus;
-    saveLocal(); renderKanbanBoard(); updateDashboard();
-    try { await fetch('/api/orders/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: newStatus }) }); } catch(e){}
+    renderKanbanBoard(); updateDashboard();
+    try { await authFetch('/api/orders/' + id, { method: 'PUT', body: JSON.stringify({ status: newStatus }) }); } catch(e){}
   }
 }
 
-// ── DELETE ORDER ──────────────────────────────────────────────────────────────
 async function deleteOrder(id) {
   if (!confirm('Видалити замовлення?')) return;
   db.orders = db.orders.filter(o => o.id !== id);
-  saveLocal(); renderAll();
-  try { await fetch('/api/orders/' + id, { method: 'DELETE' }); } catch(e){}
+  renderAll();
+  try { await authFetch('/api/orders/' + id, { method: 'DELETE' }); } catch(e){}
   toast('Замовлення видалено', 'success');
 }
 
-// ── EDIT ORDER ────────────────────────────────────────────────────────────────
 function editOrder(id) {
   const o = db.orders.find(x => x.id === id);
   if (!o) return;
@@ -752,12 +837,11 @@ async function submitOrderEdit() {
   o.price = parseFloat(document.getElementById('ord-price').value);
   o.status = document.getElementById('ord-status').value;
   o.notes = document.getElementById('ord-notes').value;
-  saveLocal(); renderAll(); closeModal('order');
-  try { await fetch('/api/orders/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(o) }); } catch(e){}
+  renderAll(); closeModal('order');
+  try { await authFetch('/api/orders/' + id, { method: 'PUT', body: JSON.stringify(o) }); } catch(e){}
   toast('Замовлення оновлено', 'success');
 }
 
-// ── INVENTORY ─────────────────────────────────────────────────────────────────
 function openAddMaterial() {
   document.getElementById('mat-edit-id').value = '';
   document.getElementById('mat-modal-title').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Новий матеріал`;
@@ -796,35 +880,32 @@ async function submitMaterial() {
   if (!color) return toast('Вкажіть колір', 'error');
 
   if (editId) {
-    // EDIT
     const m = db.inventory.find(x => x.id === editId);
     if (m) {
       m.material = material; m.color = color; m.pricePerSpool = pricePerSpool;
       m.weightPerSpool = weightPerSpool; m.notes = notes;
       while (m.spools.length < qty) m.spools.push({ id: 'spool-' + Date.now() + m.spools.length, remainingGrams: weightPerSpool });
     }
-    try { await fetch('/api/inventory/' + editId, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(db.inventory.find(x => x.id === editId)) }); } catch(e){}
+    try { await authFetch('/api/inventory/' + editId, { method: 'PUT', body: JSON.stringify(db.inventory.find(x => x.id === editId)) }); } catch(e){}
     toast('Матеріал оновлено', 'success');
   } else {
-    // ADD
     const id = 'mat-' + Date.now();
     const spools = Array.from({ length: qty }, (_, i) => ({ id: 'spool-' + (Date.now() + i), remainingGrams: weightPerSpool }));
     const entry = { id, material, color, pricePerSpool, weightPerSpool, spools, notes };
     db.inventory.push(entry);
     
-    // ВІДПРАВЛЯЄМО ПОВНИЙ ОБ'ЄКТ (разом з _id та котушками) НА НОВИЙ АПІ
-    try { await fetch('/api/inventory', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }); } catch(e){}
+    try { await authFetch('/api/inventory', { method: 'POST', body: JSON.stringify(entry) }); } catch(e){}
     toast('Матеріал додано', 'success');
   }
 
-  saveLocal(); renderAll(); closeModal('material');
+  renderAll(); closeModal('material');
 }
 
 async function deleteMaterial(id) {
   if (!confirm('Видалити матеріал зі складу?')) return;
   db.inventory = db.inventory.filter(m => m.id !== id);
-  saveLocal(); renderAll();
-  try { await fetch('/api/inventory/' + id, { method: 'DELETE' }); } catch(e){}
+  renderAll();
+  try { await authFetch('/api/inventory/' + id, { method: 'DELETE' }); } catch(e){}
   toast('Матеріал видалено', 'success');
 }
 
@@ -832,12 +913,11 @@ async function addSpoolToMaterial(matId, weight) {
   const mat = db.inventory.find(m => m.id === matId);
   if (!mat) return;
   mat.spools.push({ id: 'spool-' + Date.now(), remainingGrams: weight });
-  saveLocal(); renderInventory();
-  try { await fetch('/api/inventory/' + matId, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mat) }); } catch(e){}
+  renderInventory();
+  try { await authFetch('/api/inventory/' + matId, { method: 'PUT', body: JSON.stringify(mat) }); } catch(e){}
   toast('Котушку додано', 'success');
 }
 
-// ── MODELS ────────────────────────────────────────────────────────────────────
 function loadModelToCalc(name, w, t) {
   switchTab('calculator', document.querySelectorAll('.nav-item')[2]);
   document.getElementById('c_modelName').value = name;
@@ -864,57 +944,36 @@ async function submitModelEdit() {
   m.name = document.getElementById('mod-name').value;
   m.weight = parseFloat(document.getElementById('mod-weight').value);
   m.timeMins = parseFloat(document.getElementById('mod-time').value);
-  saveLocal(); renderModels(); closeModal('model');
-  try { await fetch('/api/models/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(m) }); } catch(e){}
+  renderModels(); closeModal('model');
+  try { await authFetch('/api/models/' + id, { method: 'PUT', body: JSON.stringify(m) }); } catch(e){}
   toast('Модель оновлено', 'success');
 }
 
 async function deleteModel(id) {
   if (!confirm('Видалити модель?')) return;
   db.savedModels = db.savedModels.filter(m => m.id !== id);
-  saveLocal(); renderModels(); updateDashboard();
-  try { await fetch('/api/models/' + id, { method: 'DELETE' }); } catch(e){}
+  renderModels(); updateDashboard();
+  try { await authFetch('/api/models/' + id, { method: 'DELETE' }); } catch(e){}
   toast('Модель видалено', 'success');
 }
 
-// ── SETTINGS ──────────────────────────────────────────────────────────────────
 async function saveSettings() {
   settings.amort = parseFloat(document.getElementById('set_amort').value) || 15;
   settings.kwPrice = parseFloat(document.getElementById('set_kwprice').value) || 4.32;
   settings.printerKw = parseFloat(document.getElementById('set_printerkw').value) || 0.1;
-  localStorage.setItem('3dmanage_set', JSON.stringify(settings));
   document.getElementById('k_amort').value = settings.amort;
   document.getElementById('c_amort').value = settings.amort;
   calcK(); calcC();
-  try { await fetch('/api/settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) }); } catch(e){}
+  try { await authFetch('/api/settings', { method: 'POST', body: JSON.stringify(settings) }); } catch(e){}
   toast('Налаштування збережено', 'success');
 }
 
-// ── DRAG AND DROP KANBAN ──────────────────────────────────────────────────────
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev, id) {
-  ev.dataTransfer.setData("order_id", id);
-}
-
-function drop(ev, newStatus) {
-  ev.preventDefault();
-  const id = ev.dataTransfer.getData("order_id");
-  if (id) {
-    updateOrderStatus(id, newStatus);
-  }
-}
-
-// ── PROCUREMENT FORECAST ──────────────────────────────────────────────────────
 async function openProcurementModal() {
   openModal('procurement');
   document.getElementById('procurement-container').innerHTML = 'Завантаження даних...';
   
   try {
-    const res = await fetch('/api/analytics/procurement/forecast');
-    if (!res.ok) throw new Error('API Offline');
+    const res = await authFetch('/api/analytics/procurement/forecast');
     const data = await res.json();
     
     let csvContent = "data:text/csv;charset=utf-8,Матеріал,Колір,Статус,Залишок(днів),Замовити(шт)\n";
@@ -942,22 +1001,17 @@ async function openProcurementModal() {
     
     document.getElementById('procurement-container').innerHTML = html;
   } catch(e) {
-    document.getElementById('procurement-container').innerHTML = '<div style="color:var(--red)">Помилка завантаження (API недоступне або офлайн режим)</div>';
+    document.getElementById('procurement-container').innerHTML = '<div style="color:var(--red)">Помилка завантаження.</div>';
   }
 }
-
-// ── FINANCE ANALYTICS ─────────────────────────────────────────────────────────
-let chartInstance = null;
 
 async function generateFinanceReport() {
   const start = document.getElementById('fin-start').value;
   const end = document.getElementById('fin-end').value;
-  
   if (!start || !end) return toast('Вкажіть обидві дати', 'error');
 
   try {
-    const res = await fetch(`/api/analytics/finance?start=${start}&end=${end}&group=3`);
-    if (!res.ok) throw new Error('API Offline');
+    const res = await authFetch(`/api/analytics/finance?start=${start}&end=${end}&group=3`);
     const data = await res.json();
 
     if (chartInstance) chartInstance.destroy();
@@ -996,12 +1050,9 @@ async function generateFinanceReport() {
         <span>ЧИСТИЙ ПРИБУТОК:</span><span>${data.netProfit.toFixed(2)} ₴</span>
       </div>
     `;
-  } catch(e) {
-    toast('Офлайн режим: розрахунок недоступний', 'error');
-  }
+  } catch(e) { toast('Помилка розрахунку', 'error'); }
 }
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
 function renderAll() {
   const opts = '<option value="">-- Оберіть матеріал --</option>' +
     db.inventory.map(m => `<option value="${m.id}">${m.material} — ${m.color}</option>`).join('');
@@ -1125,10 +1176,6 @@ function renderKanbanBoard() {
   });
 }
 
-// ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
-function saveLocal() { localStorage.setItem('3dmanage_db', JSON.stringify(db)); }
-
-// ── TOAST ─────────────────────────────────────────────────────────────────────
 function toast(msg, type = 'success') {
   const c = document.getElementById('toastContainer');
   const t = document.createElement('div');
@@ -1138,7 +1185,6 @@ function toast(msg, type = 'success') {
   setTimeout(() => t.remove(), 3200);
 }
 
-// ── BOOT ──────────────────────────────────────────────────────────────────────
 init();
 </script>
 </body>

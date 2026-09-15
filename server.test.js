@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
-const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 // === 1. БЛОКУЄМО РЕАЛЬНЕ ПІДКЛЮЧЕННЯ ДО MONGODB ===
 jest.spyOn(mongoose, 'connect').mockResolvedValue(true);
@@ -25,9 +25,18 @@ jest.spyOn(mongoose.Model, 'findOne').mockImplementation((query) => {
 const app = require('./server'); 
   
 describe('API Тестування 3dManage', () => {
+  // Створюємо фейковий токен для проходження middleware авторизації
+  const token = jwt.sign(
+    { id: 'test_user_id', email: 'test@farm.com', farmName: 'Test Farm' }, 
+    process.env.JWT_SECRET || 'super-secret-key-3dmanage'
+  );
+
   // Тест 1: Перевірка складу (GET)
   it('GET /api/inventory повинен повертати масив (статус 200)', async () => {
-    const res = await request(app).get('/api/inventory');
+    const res = await request(app)
+      .get('/api/inventory')
+      .set('Authorization', `Bearer ${token}`); // Додаємо токен
+      
     expect(res.statusCode).toEqual(200);
     expect(Array.isArray(res.body)).toBeTruthy();
   });
@@ -35,7 +44,10 @@ describe('API Тестування 3dManage', () => {
   // Тест 2: Збереження моделі (POST)
   it('POST /api/models повинен зберігати нову модель', async () => {
     const newModel = { name: "Test_Gear", weight: 50, timeMins: 120 };
-    const res = await request(app).post('/api/models').send(newModel);
+    const res = await request(app)
+      .post('/api/models')
+      .set('Authorization', `Bearer ${token}`) // Додаємо токен
+      .send(newModel);
     
     expect(res.statusCode).toEqual(200);
     expect(res.body.success).toBe(true);
@@ -45,6 +57,7 @@ describe('API Тестування 3dManage', () => {
   it('POST /api/checkout повинен повертати 400 при невірному ID матеріалу', async () => {
     const res = await request(app)
       .post('/api/checkout')
+      .set('Authorization', `Bearer ${token}`) // Додаємо токен
       .send({ materialId: "invalid_id", spoolId: "1", weightUsed: 10 });
     
     expect(res.statusCode).toEqual(400);

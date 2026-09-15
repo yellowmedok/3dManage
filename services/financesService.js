@@ -1,9 +1,12 @@
 const Order = require('../models/Order');
 
-async function getFinancialAnalytics(startDate, endDate, taxGroup = 3) {
-    const jobs = await Order.find({ status: 'Готово', completedAt: { $gte: new Date(startDate), $lte: new Date(endDate) } });
+async function getFinancialAnalytics(userId, startDate, endDate, taxGroup = 3) {
+    const jobs = await Order.find({ 
+        userId: userId, 
+        status: 'Готово', 
+        completedAt: { $gte: new Date(startDate), $lte: new Date(endDate) } 
+    });
 
-    // Виправлено змінну "Order" назад на "job" у колбеку reduce
     const revenue = jobs.reduce((sum, job) => sum + (job.price || 0), 0);
     const materialCost = jobs.reduce((sum, job) => sum + (job.filamentCost || 0), 0);
     const electricityCost = jobs.reduce((sum, job) => sum + (job.electricityCost || 0), 0);

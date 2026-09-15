@@ -1,21 +1,22 @@
 const Order = require('../models/Order');
 const Spool = require('../models/Spool');
 
-async function getProcurementForecast() {
+async function getProcurementForecast(userId) {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const completedJobs = await Order.aggregate([
-        { $match: { status: 'Готово', completedAt: { $gte: thirtyDaysAgo } } },
+        { $match: { userId: userId, status: 'Готово', completedAt: { $gte: thirtyDaysAgo } } },
         { $group: { _id: { material: '$material', color: '$color' }, totalUsed: { $sum: '$usedWeight' } } }
     ]);
 
     const activeJobs = await Order.aggregate([
-        { $match: { status: { $in: ['Нові', 'В роботі'] } } },
+        { $match: { userId: userId, status: { $in: ['Нові', 'В роботі'] } } },
         { $group: { _id: { material: '$material', color: '$color' }, reserved: { $sum: '$usedWeight' } } }
     ]);
 
     const spools = await Spool.aggregate([
+        { $match: { userId: userId } },
         { $group: { _id: { material: '$material', color: '$color' }, currentStock: { $sum: '$currentWeight' }, pricePerKg: { $first: '$pricePerKg' } } }
     ]);
 
@@ -23,11 +24,9 @@ async function getProcurementForecast() {
         const material = spool._id.material;
         const color = spool._id.color;
         
-        // Виправлено "Order.find" на "completedJobs.find", оскільки це пошук по масиву результатів, а не запит до БД
         const completedMatch = completedJobs.find(j => j._id.material === material && j._id.color === color);
         const dailyBurnRate = completedMatch ? (completedMatch.totalUsed / 30) : 0.1; 
 
-        // Виправлено "Order.find" на "activeJobs.find"
         const activeMatch = activeJobs.find(j => j._id.material === material && j._id.color === color);
         const reservedGrams = activeMatch ? activeMatch.reserved : 0;
 

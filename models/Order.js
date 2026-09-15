@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
     modelName: String,
     client: String,
     weight: Number,
@@ -17,5 +18,4 @@ const orderSchema = new mongoose.Schema({
     completedAt: Date
 }, { timestamps: true });
 
-// Перевірка: якщо модель вже існує в пам'яті — використовуємо її, якщо ні — створюємо нову
 module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);
